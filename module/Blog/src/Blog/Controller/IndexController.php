@@ -2,9 +2,10 @@
 
 namespace Blog\Controller;
 
+use Blog\Form\Add;
+use Blog\InputFilter\AddPost;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Blog\Form\Add;
 
 class IndexController extends AbstractActionController
 {
@@ -18,10 +19,12 @@ class IndexController extends AbstractActionController
         $form = new Add();
 
         if ($this->request->isPost()) {
+            $form->setInputFilter(new AddPost()); //Add the input filter when the form is submitted.
             $form->setData($this->request->getPost());
-            /**
-             * @todo Save blog post
-             */
+
+            if ($form->isValid()) {
+
+            }
         }
 
         return new ViewModel(array(
