@@ -8,6 +8,27 @@ namespace Blog\Entity;
  */
 class Post
 {
+    /**
+     *
+     * @var String
+     */
+    protected $title;
+    /**
+     *
+     * @var String
+     */
+    protected $slug;
+    /**
+     *
+     * @var String
+     */
+    protected $content;
+    /**
+     *
+     * @var String
+     */
+    protected $category;
+
     function getTitle()
     {
         return $this->title;
@@ -28,27 +49,24 @@ class Post
         return $this->category;
     }
 
-    function setTitle(String $title)
+    function setTitle($title)
     {
         $this->title = $title;
     }
 
-    function setSlug(String $slug)
+    function setSlug( $slug)
     {
         $this->slug = $slug;
     }
 
-    function setContent(String $content)
+    function setContent( $content)
     {
         $this->content = $content;
     }
 
-    function setCategory(String $category)
+    function setCategory( $category)
     {
         $this->category = $category;
     }
-
-    
-
 
 }

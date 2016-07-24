@@ -26,7 +26,7 @@ class IndexController extends AbstractActionController
             $form->setData($this->request->getPost());
 
             if ($form->isValid()) {
-
+                $t = "";
             }
         }
 

@@ -3,6 +3,7 @@ namespace Blog\Form;
 
 use Zend\Form\Element;
 use Zend\Form\Form;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
