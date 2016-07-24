@@ -2,6 +2,7 @@
 
 namespace Blog\Controller;
 
+use Blog\Entity\Post;
 use Blog\Form\Add;
 use Blog\InputFilter\AddPost;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -19,6 +20,8 @@ class IndexController extends AbstractActionController
         $form = new Add();
 
         if ($this->request->isPost()) {
+            $blogPost = new Post();
+            $form->bind($blogPost);
             $form->setInputFilter(new AddPost()); //Add the input filter when the form is submitted.
             $form->setData($this->request->getPost());
 

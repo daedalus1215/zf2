@@ -15,6 +15,8 @@ class Add extends Form
     public function __construct()
     {
         parent::__construct('add'); // pass in the name of our form.
+        // mapping form element names to variable names to the target object.
+        $this->setHydrator(new ClassMethods()); // a hydrator is essentially an object that populates another object, based off of a set of data.
 
         // need an element for each field for our form.
         $title = new Element\Text('title');
