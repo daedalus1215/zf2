@@ -2,6 +2,8 @@
 
 namespace Blog\Service;
 
+use Blog\Entity\Post;
+
 /**
  * Description of BlogService
  *
@@ -10,8 +12,8 @@ namespace Blog\Service;
 interface BlogService
 {
     /**
-     * Saves post
-     * @param \Blog\Service\Post $post
+     *
+     * @param Post $post
      */
     public function save(Post $post);
 }
