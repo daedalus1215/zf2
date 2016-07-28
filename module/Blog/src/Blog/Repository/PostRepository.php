@@ -1,6 +1,7 @@
 <?php
 namespace Blog\Repository;
 
+use Application\Repository\RepositoryInterface;
 use Blog\Entity\Post;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,7 +14,7 @@ use Blog\Entity\Post;
  *
  * @author ladams
  */
-interface PostRepository
+interface PostRepository extends RepositoryInterface
 {
     /**
      *

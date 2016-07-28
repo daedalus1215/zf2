@@ -2,7 +2,6 @@
 namespace Blog\Repository;
 
 use Blog\Entity\Post;
-use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Sql;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,34 +16,18 @@ use Zend\Db\Sql\Sql;
  */
 class PostRepositoryImpl implements PostRepository
 {
-    /**
-     *
-     * @var type \Zend\Db\Adapter\Adapter $dbAdapter
-     */
-    protected $dbAdapter;
-    /**
-     *
-     * @var type \Zend\Db\Adapter\Adapter $dbAdapter
-     */
-    function getDbAdapter()
-    {
-        return $this->dbAdapter;
-    }
-    function setDbAdapter(Adapter $dbAdapter)
-    {
-        $this->dbAdapter = $dbAdapter;
-    }
+    use \Zend\Db\Adapter\AdapterAwareTrait;
     /**
      *
      * @param Post $post
      */
     public function save(Post $post)
     {
-        $sql = new Sql($this->dbAdapter);
+        $sql = new Sql($this->adapter);
         $sqlInsert = $sql->insert();
         $sqlInsert->values([
                 'title' => $post->getTitle(),
-                'slug' => $post->getSlug(), 
+                'slug' => $post->getSlug(),
                 'content' => $post->getContent(),
                 'category_id' => $post->getCategory(),
                 'created' => time(),
