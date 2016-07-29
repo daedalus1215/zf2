@@ -17,8 +17,17 @@ use Blog\Entity\Post;
 interface PostRepository extends RepositoryInterface
 {
     /**
+     * Saves a blog post.
      *
      * @param Post $post
+     *
+     * @reutrn void
      */
     public function save(Post $post);
+    /**
+     * Fetches all blog posts
+     *
+     * @return Post[]
+     */
+    public function fetchAll();
 }

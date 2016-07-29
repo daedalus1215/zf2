@@ -1,4 +1,5 @@
 <?php
+
 namespace Blog\Entity;
 
 /**
@@ -8,24 +9,52 @@ namespace Blog\Entity;
  */
 class Post
 {
+
+    /**
+     *
+     * @var int $id
+     */
+    protected $id;
+
+    /**
+     *
+     * @return int
+     */
+    function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     *
+     * @param int $id
+     */
+    function setId($id)
+    {
+        $this->id = $id;
+    }
+
     /**
      *
      * @var String
      */
     protected $title;
+
     /**
      *
      * @var String
      */
     protected $slug;
+
     /**
      *
-     * @var String
+     * @var string
      */
     protected $content;
+
     /**
      *
-     * @var String
+     * @var \Blog\Entity\Category
      */
     protected $category;
 
@@ -44,27 +73,43 @@ class Post
         return $this->content;
     }
 
+    /**
+     *
+     * @return \Blog\Entity\Category
+     */
     function getCategory()
     {
         return $this->category;
     }
 
+    /**
+     *
+     * @param string $title
+     */
     function setTitle($title)
     {
         $this->title = $title;
     }
 
-    function setSlug( $slug)
+    /**
+     *
+     * @param string $slug
+     */
+    function setSlug($slug)
     {
         $this->slug = $slug;
     }
 
-    function setContent( $content)
+    function setContent($content)
     {
         $this->content = $content;
     }
 
-    function setCategory( $category)
+    /**
+     *
+     * @param \Blog\Entity\Category $category
+     */
+    function setCategory(Category $category)
     {
         $this->category = $category;
     }
