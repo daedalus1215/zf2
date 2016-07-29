@@ -49,5 +49,4 @@ class PostHydrator implements HydratorInterface
         $post->setId(isset($data['id']) ?: null);
     }
 
-//put your code here
 }

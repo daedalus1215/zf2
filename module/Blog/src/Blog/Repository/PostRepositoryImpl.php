@@ -4,11 +4,6 @@ namespace Blog\Repository;
 use Blog\Entity\Post;
 use Zend\Db\Sql\Sql;
 use Zend\Hydrator\Aggregate\AggregateHydrator;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * Description of PostRepositoryImpl
@@ -60,10 +55,25 @@ class PostRepositoryImpl implements PostRepository
         $sqlSelect->order('p.id DESC');
 
         $stmt = $sql->prepareStatementForSqlObject($sqlSelect);
-        $stmt->execute();
+        $result = $stmt->execute();
 
         // use hydrator to grab the values and populate the category and post objects.
         $hydrator = new AggregateHydrator();
+        $hydrator->add(new CategoryHydrator());
+        $hydrator->add(new PostHydrator());
+
+        $resultSet = new HydratingResultSet($hydrator, new Post());
+        $resultSet->initialize($result);
+        $posts = array();
+
+        foreach ($resultSet as $post) {
+            /**
+             * @var \Blog\Entity\Post $post
+             */
+            $posts[] = $post;
+        }
+
+        return $posts;
     }
 
 }
