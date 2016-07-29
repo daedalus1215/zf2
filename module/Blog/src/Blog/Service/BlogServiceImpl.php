@@ -1,4 +1,5 @@
 <?php
+
 namespace Blog\Service;
 
 use Blog\Entity\Post;
@@ -18,6 +19,7 @@ use Blog\Service\BlogService;
  */
 class BlogServiceImpl implements BlogService
 {
+
     /**
      * @var PostRepository $postRepository
      */
@@ -27,6 +29,7 @@ class BlogServiceImpl implements BlogService
     {
         return $this->postRepository;
     }
+
     /**
      *
      * @param PostRepository $postRepository
@@ -35,12 +38,23 @@ class BlogServiceImpl implements BlogService
     {
         $this->postRepository = $postRepository;
     }
+
     /**
      *
      * @param Post $post
      */
     public function save(Post $post)
     {
-       $this->postRepository->save($post);
+        $this->postRepository->save($post);
     }
+
+    /**
+     * Fetches all blog posts
+     * @return Post[]
+     */
+    public function fetchAll()
+    {
+        $this->postRepository->fetchAll();
+    }
+
 }

@@ -21,16 +21,16 @@ class CategoryHydrator implements HydratorInterface
 {
     /**
      *
-     * @param Category $post
+     * @param Category $object
      * @return array
      */
-    public function extract(Post $post)
+    public function extract($object)
     {
-        if (!$post instanceof Post || $post->getCategory() == null) {
-            return $post;
+        if (!$object instanceof Post || $object->getCategory() == null) {
+            return $object;
         }
 
-        $category = $post->getCategory();
+        $category = $object->getCategory();
 
         return [
             'name' => $category->getName(),
@@ -42,21 +42,21 @@ class CategoryHydrator implements HydratorInterface
     /**
      *
      * @param array $data
-     * @param Post $post
+     * @param Post $object
      * @return Post
      */
-    public function hydrate(array $data, Post $post)
+    public function hydrate(array $data, $object)
     {
-        if (!$post instanceof Post) {
-            return $post;
+        if (!$object instanceof Post) {
+            return $object;
         }
-        $category = new \Blog\Entity\Hydrator\Category();
+        $category = new \Blog\Entity\Category();
         $category->setName(isset($data['name']) ?:null);
         $category->setSlug(isset($data['slug']) ?:null);
         $category->setId(isset($data['id']) ?:null);
-        $post->setCategory($category);
+        $object->setCategory($category);
 
-        return $post;
+        return $object;
     }
 
 //put your code here

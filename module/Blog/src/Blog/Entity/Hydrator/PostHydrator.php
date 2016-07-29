@@ -13,40 +13,43 @@ class PostHydrator implements HydratorInterface
     /**
      * Extract values from an object
      *
-     * @param  Post $post
+     * @param  Post $object
      * @return Post
      */
-    public function extract(Post $post)
+    public function extract( $object)
     {
-        if (!$post instanceof Post) {
-            return $post;
+        if (!$object instanceof Post) {
+            return $object;
         }
 
         return array(
-            'content' => $post->getContent(),
-            'title' => $post->getTitle(),
-            'slug' => $post->getSlug(),
-            'id' => $post->getId(),
+            'content' => $object->getContent(),
+            'title' => $object->getTitle(),
+            'slug' => $object->getSlug(),
+            'id' => $object->getId(),
         );
     }
     /**
      * Hydrate $object with the provided $data.
      *
      * @param  array $data
-     * @param  Post $post
+     * @param  Post $object
      * @return Post
      */
-    public function hydrate(array $data, Post $post)
+    public function hydrate(array $data,  $object)
     {
         // only want this hydrator to be applicable to our Post object.
-        if (!$post instanceof Post) {
-            return $post;
+        if (!$object instanceof Post) {
+            return $object;
         }
-        $post->setCategory(isset($data['category']) ?: null);
-        $post->setContent(isset($data['content']) ?: null);
-        $post->setTitle(isset($data['title']) ?: null);
-        $post->setSlug(isset($data['slug']) ?: null);
-        $post->setId(isset($data['id']) ?: null);
+        /**
+         * @var Blog\Entity\Post $object
+         */
+        $object->setCategory(isset($data['category']) ?: null);
+        $object->setContent(isset($data['content']) ?: null);
+        $object->setTitle(isset($data['title']) ?: null);
+        $object->setSlug(isset($data['slug']) ?: null);
+        $object->setId(isset($data['id']) ?: null);
     }
 
 }

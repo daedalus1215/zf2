@@ -1,7 +1,10 @@
 <?php
 namespace Blog\Repository;
 
+use Blog\Entity\Hydrator\CategoryHydrator;
+use Blog\Entity\Hydrator\PostHydrator;
 use Blog\Entity\Post;
+use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\Sql\Sql;
 use Zend\Hydrator\Aggregate\AggregateHydrator;
 
@@ -68,7 +71,7 @@ class PostRepositoryImpl implements PostRepository
 
         foreach ($resultSet as $post) {
             /**
-             * @var \Blog\Entity\Post $post
+             * @var Post $post
              */
             $posts[] = $post;
         }
