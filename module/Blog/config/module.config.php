@@ -28,8 +28,23 @@ return array(
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page'       => 1, //if user goes to blog/page/:page and doesn't have a value for :page, then we set it to 1 by default.
                             ),
                             'defaults' => array(
+                            ),
+                        ),
+                    ),
+
+                    'paged' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/page/:page',
+                            'constraint' => array(
+                                'page' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Blog\Controller\Index',
+                                'action' => 'index',
                             ),
                         ),
                     ),

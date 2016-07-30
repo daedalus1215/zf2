@@ -54,9 +54,9 @@ class BlogServiceImpl implements BlogService
      * Fetches all blog posts
      * @return Post[]
      */
-    public function fetchAll()
+    public function fetch($page)
     {
-        return $this->postRepository->fetchAll();
+        return $this->postRepository->fetch($page);
     }
 
 }

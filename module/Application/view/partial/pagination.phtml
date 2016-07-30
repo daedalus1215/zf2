@@ -1,0 +1,14 @@
+<?php if ($this->pageCount): ?>
+    <div class="paginationControl">
+      <!-- previous page links -->
+        <?php if (isset($this->previous)): ?>
+            <a href="<?php echo $this->url($this->route, array('page' => $this->previous)); ?>">
+              &lt; Previous
+            </a>
+        <?php else: ?>
+            <span class="disabled">&lt; Previous</span>
+        <?php endif; ?>
+
+        <!-- Numbered page links -->
+    </div>
+<?php endif; ?>

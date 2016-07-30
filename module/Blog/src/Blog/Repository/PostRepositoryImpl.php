@@ -38,7 +38,7 @@ class PostRepositoryImpl implements PostRepository
         $stmt->execute();
     }
 
-    public function fetchAll()
+    public function fetchAll($page)
     {
         $sql = new Sql($this->adapter);
 
@@ -57,8 +57,7 @@ class PostRepositoryImpl implements PostRepository
                 );
         $sqlSelect->order('p.id DESC');
 
-        $stmt = $sql->prepareStatementForSqlObject($sqlSelect);
-        $result = $stmt->execute();
+
 
         // use hydrator to grab the values and populate the category and post objects.
         $hydrator = new AggregateHydrator();
@@ -66,17 +65,13 @@ class PostRepositoryImpl implements PostRepository
         $hydrator->add(new CategoryHydrator());
 
         $resultSet = new HydratingResultSet($hydrator, new Post());
-        $resultSet->initialize($result);
-        $posts = array();
+        
+        $paginatorAdapter = new \Zend\Paginator\Adapter\DbSelect($sqlSelect, $this->adapter, $resultSet);
+        $paginator = new \Zend\Paginator\Paginator($paginatorAdapter);
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(5);
 
-        foreach ($resultSet as $post) {
-            /**
-             * @var Post $post
-             */
-            $posts[] = $post;
-        }
-
-        return $posts;
+        return $paginator;
     }
 
 }
