@@ -4,9 +4,9 @@ namespace Blog\Repository;
 use Blog\Entity\Hydrator\CategoryHydrator;
 use Blog\Entity\Hydrator\PostHydrator;
 use Blog\Entity\Post;
-use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\Sql\Sql;
-use Zend\Hydrator\Aggregate\AggregateHydrator;
+use Zend\Db\ResultSet\HydratingResultSet;
+use Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator;
 
 /**
  * Description of PostRepositoryImpl
@@ -28,7 +28,7 @@ class PostRepositoryImpl implements PostRepository
                 'title' => $post->getTitle(),
                 'slug' => $post->getSlug(),
                 'content' => $post->getContent(),
-                'category_id' => $post->getCategory(),
+                'category_id' => $post->getCategory()->getId(),
                 'created' => time(),
             ])
             ->into('post');
@@ -62,8 +62,8 @@ class PostRepositoryImpl implements PostRepository
 
         // use hydrator to grab the values and populate the category and post objects.
         $hydrator = new AggregateHydrator();
-        $hydrator->add(new CategoryHydrator());
         $hydrator->add(new PostHydrator());
+        $hydrator->add(new CategoryHydrator());
 
         $resultSet = new HydratingResultSet($hydrator, new Post());
         $resultSet->initialize($result);

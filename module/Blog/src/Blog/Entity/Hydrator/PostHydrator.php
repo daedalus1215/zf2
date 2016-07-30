@@ -3,6 +3,7 @@ namespace Blog\Entity\Hydrator;
 
 use Blog\Entity\Post;
 use Zend\Hydrator\HydratorInterface;
+
 /**
  * Description of PostHydrator
  *
@@ -19,14 +20,14 @@ class PostHydrator implements HydratorInterface
     public function extract( $object)
     {
         if (!$object instanceof Post) {
-            return $object;
+            return array();
         }
 
         return array(
-            'content' => $object->getContent(),
+            'id' => $object->getId(),
             'title' => $object->getTitle(),
             'slug' => $object->getSlug(),
-            'id' => $object->getId(),
+            'content' => $object->getContent(),
         );
     }
     /**
@@ -43,13 +44,14 @@ class PostHydrator implements HydratorInterface
             return $object;
         }
         /**
-         * @var Blog\Entity\Post $object
+         * @var Post $object
          */
-        $object->setCategory(isset($data['category']) ?: null);
-        $object->setContent(isset($data['content']) ?: null);
-        $object->setTitle(isset($data['title']) ?: null);
-        $object->setSlug(isset($data['slug']) ?: null);
-        $object->setId(isset($data['id']) ?: null);
+        $object->setId(isset($data['id']) ? $data['id']: null);
+        $object->setTitle(isset($data['title']) ? $data['title']: null);
+        $object->setSlug(isset($data['slug']) ? $data['slug']: null);
+        $object->setContent(isset($data['content']) ? $data['content']: null);
+
+        return $object;
     }
 
 }

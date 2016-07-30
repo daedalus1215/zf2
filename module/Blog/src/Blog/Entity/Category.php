@@ -17,6 +17,17 @@ class Category
     protected $id;
     /**
      *
+     * @var string
+     */
+    protected $name;
+    /**
+     *
+     * @var string
+     */
+    protected $slug;
+
+    /**
+     *
      * @return int
      */
     function getId()
@@ -31,19 +42,6 @@ class Category
     {
         $this->id = $id;
     }
-
-
-    /**
-     *
-     * @var string
-     */
-    protected $name;
-
-    /**
-     *
-     * @var string
-     */
-    protected $slug;
 
     /**
      *

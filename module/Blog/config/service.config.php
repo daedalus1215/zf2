@@ -27,7 +27,7 @@ return array(
         'Blog\Service\BlogService' => function(ServiceLocatorInterface $serviceLocator) {
            // create new blog service
            $blogService = new BlogServiceImpl();
-           $blogService->setPostRepository($serviceLocator->get('\Blog\Repository\PostRepository'));
+           $blogService->setBlogRepository($serviceLocator->get('\Blog\Repository\PostRepository'));
            // return the blogservice
            return $blogService;
         },

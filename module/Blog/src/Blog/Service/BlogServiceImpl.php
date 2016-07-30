@@ -25,19 +25,6 @@ class BlogServiceImpl implements BlogService
      */
     protected $postRepository;
 
-    function getPostRepository()
-    {
-        return $this->postRepository;
-    }
-
-    /**
-     *
-     * @param PostRepository $postRepository
-     */
-    function setPostRepository(PostRepository $postRepository)
-    {
-        $this->postRepository = $postRepository;
-    }
 
     /**
      *
@@ -48,13 +35,28 @@ class BlogServiceImpl implements BlogService
         $this->postRepository->save($post);
     }
 
+    function getBlogRepository()
+    {
+        return $this->postRepository;
+    }
+
+    /**
+     *
+     * @param PostRepository $postRepository
+     */
+    function setBlogRepository($postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
+
+
     /**
      * Fetches all blog posts
      * @return Post[]
      */
     public function fetchAll()
     {
-        $this->postRepository->fetchAll();
+        return $this->postRepository->fetchAll();
     }
 
 }

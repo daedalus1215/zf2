@@ -54,7 +54,7 @@ class Post
 
     /**
      *
-     * @var \Blog\Entity\Category
+     * @var Category
      */
     protected $category;
 
