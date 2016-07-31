@@ -8,12 +8,15 @@
 
 namespace Blog\Form;
 
+use Blog\Entity\Hydrator\CategoryHydrator;
+use Blog\Entity\Hydrator\PostHydrator;
+use Zend\Form\Element\Hidden;
 use Zend\Form\Element\Select;
 use Zend\Form\Element\Submit;
 use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
-use Zend\Stdlib\Hydrator\ClassMethods;
+use Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator;
 
 /**
  * Description of Edit
@@ -34,7 +37,7 @@ class Edit extends Form
         $hydrator->add(new CategoryHydrator());
         $this->setHydrator($hydrator);
 
-        $id = new Element\Hidden('id');
+        $id = new Hidden('id');
 
         // need an element for each field for our form.
         $title = new Text('title');

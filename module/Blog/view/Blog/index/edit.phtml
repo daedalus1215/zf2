@@ -1,3 +1,4 @@
+
 <h1>Add Blog Post</h1>
 
 <?php
@@ -20,8 +21,10 @@
 <div>
     <?php echo $this->formRow($form->get('category')); ?>
 </div>
+
+<?php echo $this->formHidden($form->get('id'));?>
+
   <div>
     <?php echo $this->formSubmit($form->get('submit')); ?>
 </div>
-
 <?php echo $this->form()->closeTag(); ?>

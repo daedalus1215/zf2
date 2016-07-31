@@ -4,6 +4,7 @@ namespace Blog\Controller;
 
 use Blog\Entity\Post;
 use Blog\Form\Add;
+use Blog\Form\Edit;
 use Blog\InputFilter\AddPost;
 use Blog\Service\BlogService;
 use Zend\Http\Response;
@@ -56,7 +57,7 @@ class IndexController extends AbstractActionController
                  */
                 $blogService = $this->getBlogService();
                 $blogService->save($blogPost);
-                $variables['success'] = true;
+                $this->flashMessenger()->addSuccessMessage('Post has been added.');
             }
         }
 
@@ -84,11 +85,11 @@ class IndexController extends AbstractActionController
 
 
 
-    public function edit()
+    public function editAction()
     {
         $form = new Edit();
 
-        if ($this->request->isPost) {
+        if ($this->request->isPost()) {
             $post = new Post();
             $form->bind($post);
             $form->setData($this->request->getPost());
@@ -104,11 +105,17 @@ class IndexController extends AbstractActionController
                     $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
                 } else {
                     $form->bind($post); // populate the form with the post.
-                    
+
+                    $form->get('slug')->setValue($post->getSlug());
+                    $form->get('id')->setValue($post->getId());
+                    $form->get('category_id')->setValue($post->getCategory()->getId());
                 }
             }
 
         }
-    }
 
+        return new ViewModel(array(
+            'form' => $form
+        ));
+    }
 }
