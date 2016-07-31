@@ -6,8 +6,8 @@ use Blog\Entity\Post;
 use Blog\Form\Add;
 use Blog\InputFilter\AddPost;
 use Blog\Service\BlogService;
+use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
@@ -17,15 +17,18 @@ class IndexController extends AbstractActionController
     {
         $variables = [];
         /**
-         * @var \Blog\Service\BlogService
+         * @var BlogService
          */
-        $blogService = $this->getServiceLocator()->get('Blog\Service\BlogService');
+        $blogService = $this->getBlogService();
         $page = $this->params()->fromRoute('page'); // grab the :page url parameter.
         $variables['paginator'] = $blogService->fetch($page);
 
         return new ViewModel($variables);
     }
-
+    /**
+     * Add a new Post.
+     * @return ViewModel
+     */
     public function addAction()
     {
         $form = new Add();
@@ -41,7 +44,7 @@ class IndexController extends AbstractActionController
                 /**
                  * @var BlogService $blogService
                  */
-                $blogService = $this->getServiceLocator()->get('Blog\Service\BlogService');
+                $blogService = $this->getBlogService();
                 $blogService->save($blogPost);
                 $variables['success'] = true;
             }
@@ -49,4 +52,31 @@ class IndexController extends AbstractActionController
 
         return new ViewModel($variables);
     }
+
+    /**
+     *
+     * @return BlogService
+     */
+    protected function getBlogService()
+    {
+        return $this->getServiceLocator('Blog\Service\BlogService');
+    }
+
+
+    public function viewPostAction()
+    {
+        $categorySlug = $this->param()->fromRoute('categorySlug');
+        $postSlug = $this->param()->fromRoute('postSlug');
+        $post = $this->getBlogService()->find($categorySlug, $postSlug);
+
+        if ($post == null) {
+            $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
+        }
+
+        return new ViewModel(array(
+            'post' => $post,
+        ));
+
+    }
+
 }

@@ -4,9 +4,11 @@ namespace Blog\Repository;
 use Blog\Entity\Hydrator\CategoryHydrator;
 use Blog\Entity\Hydrator\PostHydrator;
 use Blog\Entity\Post;
-use Zend\Db\Sql\Sql;
 use Zend\Db\ResultSet\HydratingResultSet;
-use Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator;
+use Zend\Db\Sql\Sql;
+use Zend\Hydrator\Aggregate\AggregateHydrator;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 /**
  * Description of PostRepositoryImpl
@@ -66,12 +68,53 @@ class PostRepositoryImpl implements PostRepository
 
         $resultSet = new HydratingResultSet($hydrator, new Post());
 
-        $paginatorAdapter = new \Zend\Paginator\Adapter\DbSelect($sqlSelect, $this->adapter, $resultSet);
-        $paginator = new \Zend\Paginator\Paginator($paginatorAdapter);
+        $paginatorAdapter = new DbSelect($sqlSelect, $this->adapter, $resultSet);
+        $paginator = new Paginator($paginatorAdapter);
         $paginator->setCurrentPageNumber($page);
         $paginator->setItemCountPerPage(5);
 
         return $paginator;
     }
 
+    /**
+     * Find a specific post with it's specific category.
+     *
+     * @param type $categorySlug
+     * @param type $postSlug
+     * @return null|mixed
+     */
+    public function find($categorySlug, $postSlug)
+    {
+        $sql = new Sql($this->adapter);
+
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(['p' =>'post']);
+        $sqlSelect->columns([
+                'id',
+                'title',
+                'slug',
+                'content',
+                'created'
+            ]);
+        $sqlSelect->join(['c' => 'category'],
+                        'c.id = p.category_id',
+                        ['category_id' => 'id', 'name', 'category_slug' => 'slug']
+                );
+        $sqlSelect->where(array(
+            'c.slug' => $categorySlug,
+            'p.slug' => $postSlug
+        ));
+
+        $stmt = $sql->prepareStatementForSqlObject($sqlSelect);
+        $result = $stmt->execute();
+
+        $hydrator = new AggregateHydrator();
+        $hydrator->add(new PostHydrator());
+        $hydrator->add(new CategoryHydrator());
+
+        $resultSet = new HydratingResultSet($hydrator, new Post()); // populate the new post object
+        $resultSet->initialize($result); // initializes the resultset and sets the data source.
+        // return the post or return null.
+        return ($resultSet->count() > 0) ? $resultSet->current() : null;
+    }
 }

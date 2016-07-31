@@ -62,4 +62,9 @@ class BlogServiceImpl implements BlogService
         return $paginator;
     }
 
+    public function find($categorySlug, $postSlug)
+    {
+        return $this->postRepository->find($categorySlug, $postSlug);
+    }
+
 }

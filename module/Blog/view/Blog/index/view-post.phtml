@@ -1,0 +1,10 @@
+<?php /** @var \Blog\Entity\Post $post */ ?>
+
+<?php $post = $this->post; ?>
+<?php
+
+$postedAt = $this->dateFormat(
+        $post->getCreated(),
+        
+        );
+?>

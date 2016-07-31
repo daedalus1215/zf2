@@ -47,6 +47,20 @@ return array(
                             ),
                         ),
                     ),
+                    'display-post' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'blog/posts/:categorySlug/:postSlug',
+                            'constraints' => array(
+                                'categorySlug' => '[a-zA-Z0-9-]+',
+                                'postSlug'     => '[a-zA-Z0-9-]+'
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Blog\Controller\Index',
+                                'action'     => 'viewPost'
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

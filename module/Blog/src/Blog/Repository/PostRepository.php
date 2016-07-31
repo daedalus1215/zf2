@@ -25,9 +25,17 @@ interface PostRepository extends RepositoryInterface
      */
     public function save(Post $post);
     /**
-     * 
+     *
      * @param int $page.
      * @return \Zend\Paginator\Paginator
      */
     public function fetch($page);
+
+    /**
+     *
+     * @param type $categorySlug
+     * @param type $postSlug
+     * @return mixed
+     */
+    public function find($categorySlug, $postSlug);
 }

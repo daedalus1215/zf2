@@ -9,12 +9,38 @@ namespace Blog\Entity;
  */
 class Post
 {
-
     /**
      *
      * @var int $id
      */
     protected $id;
+    /**
+     *
+     * @var String
+     */
+    protected $title;
+    /**
+     *
+     * @var String
+     */
+    protected $slug;
+    /**
+     *
+     * @var string
+     */
+    protected $content;
+    /**
+     *
+     * @var Category
+     */
+    protected $category;
+    /**
+     *
+     * @var int
+     */
+    protected $created;
+
+
 
     /**
      *
@@ -33,30 +59,16 @@ class Post
     {
         $this->id = $id;
     }
+       
+    function getCreated()
+    {
+        return $this->created;
+    }
 
-    /**
-     *
-     * @var String
-     */
-    protected $title;
-
-    /**
-     *
-     * @var String
-     */
-    protected $slug;
-
-    /**
-     *
-     * @var string
-     */
-    protected $content;
-
-    /**
-     *
-     * @var Category
-     */
-    protected $category;
+    function setCreated($created)
+    {
+        $this->created = $created;
+    }
 
     function getTitle()
     {

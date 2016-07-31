@@ -22,4 +22,11 @@ interface BlogService
      * @return \Zend\Paginator\Paginator
      */
     public function fetch($page);
+    /**
+     *
+     * @param $categorySlug
+     * @param $postSlug
+     * @return Post|null
+     */
+    public function find($categorySlug, $postSlug);
 }
