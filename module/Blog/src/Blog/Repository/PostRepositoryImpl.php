@@ -38,7 +38,7 @@ class PostRepositoryImpl implements PostRepository
         $stmt->execute();
     }
 
-    public function fetchAll($page)
+    public function fetch($page)
     {
         $sql = new Sql($this->adapter);
 
@@ -65,7 +65,7 @@ class PostRepositoryImpl implements PostRepository
         $hydrator->add(new CategoryHydrator());
 
         $resultSet = new HydratingResultSet($hydrator, new Post());
-        
+
         $paginatorAdapter = new \Zend\Paginator\Adapter\DbSelect($sqlSelect, $this->adapter, $resultSet);
         $paginator = new \Zend\Paginator\Paginator($paginatorAdapter);
         $paginator->setCurrentPageNumber($page);
