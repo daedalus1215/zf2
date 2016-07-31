@@ -24,20 +24,27 @@ class PostRepositoryImpl implements PostRepository
      */
     public function save(Post $post)
     {
-        $sql = new Sql($this->adapter);
-        $sqlInsert = $sql->insert();
-        $sqlInsert->values([
-                'title' => $post->getTitle(),
-                'slug' => $post->getSlug(),
-                'content' => $post->getContent(),
-                'category_id' => $post->getCategory()->getId(),
-                'created' => time(),
-            ])
-            ->into('post');
+        try {
+            $this->adapter->getDriver()->getConnection()->beginTransaction();
 
-        // preparing a statement, so we can execute.
-        $stmt = $sql->prepareStatementForSqlObject($sqlInsert);
-        $stmt->execute();
+            // Insert blog post
+            $sql = new Sql($this->adapter);
+            $sqlInsert = $sql->insert();
+            $sqlInsert->values([
+                    'title' => $post->getTitle(),
+                    'slug' => $post->getSlug(),
+                    'content' => $post->getContent(),
+                    'category_id' => $post->getCategory()->getId(),
+                    'created' => time(),
+                ])
+                ->into('post');
+
+            $this->adapter->getDriver()->getConnection()->commit();
+        } catch (Exception $ex) {
+            $this->adapter->getDriver()->getConnection()->rollback();
+            throw $e;
+        }
+
     }
 
     public function fetch($page)
