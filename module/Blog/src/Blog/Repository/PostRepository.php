@@ -50,5 +50,10 @@ interface PostRepository extends RepositoryInterface
      * @return void|null
      */
     public function update(Post $post);
+    /**
+     *
+     * @param Post $post
+     */
+    public function delete(Post $post);
 
 }

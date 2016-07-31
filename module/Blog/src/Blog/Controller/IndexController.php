@@ -35,6 +35,7 @@ class IndexController extends AbstractActionController
 
         return new ViewModel($variables);
     }
+
     /**
      * Add a new Post.
      * @return ViewModel
@@ -63,9 +64,6 @@ class IndexController extends AbstractActionController
         return new ViewModel($variables);
     }
 
-
-
-
     public function viewPostAction()
     {
         $categorySlug = $this->params()->fromRoute('categorySlug');
@@ -82,8 +80,6 @@ class IndexController extends AbstractActionController
 
     }
 
-
-
     public function editAction()
     {
         $form = new Edit();
@@ -97,7 +93,7 @@ class IndexController extends AbstractActionController
                 $blogService = $this->getBlogService();
                 $blogService->update($post);
                 $this->flashMessenger()->addSuccessMessage('Post has been updated!');
-            } 
+            }
         }else {
                 $post = $this->getBlogService()->findById($this->params()->fromRoute('postId'));
 
@@ -115,5 +111,11 @@ class IndexController extends AbstractActionController
         return new ViewModel(array(
             'form' => $form
         ));
+    }
+
+    public function deleteAction()
+    {
+        //@todo: complete this.
+        return new ViewModel(array());
     }
 }
