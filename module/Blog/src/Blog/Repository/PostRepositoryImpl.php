@@ -174,10 +174,11 @@ class PostRepositoryImpl implements PostRepository
     public function delete(Post $post)
     {
         $sql = new Sql($this->adapter);
-        $sqlDelete = $sql->delete('post');
-        $sqlDelete->where('post.id', $post->getId());
-
-        $stmt = $sql->prepareStatementForSqlObject($sqlUpdate);
+        $sqlDelete = $sql->delete();
+        $sqlDelete->from('post');
+        $sqlDelete->where(['id' => $post->getId()]);
+        $d = $sqlDelete->getSqlString();
+        $stmt = $sql->prepareStatementForSqlObject($sqlDelete);
         $stmt->execute();
     }
 

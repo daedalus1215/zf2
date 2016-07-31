@@ -115,7 +115,16 @@ class IndexController extends AbstractActionController
 
     public function deleteAction()
     {
-        //@todo: complete this.
-        return new ViewModel(array());
+        $postId = $this->params()->fromRoute('postId');
+        /**
+         * @var Blog\Service\BlogService $blogService
+         */
+        $blogService = $this->getBlogService();
+        if ($blogService instanceof \Blog\Service\BlogService) {
+            $post = $blogService->findById($postId);
+            $blogService->delete($post);
+            $this->flashMessenger()->addSuccessMessage($post->getTitle() . ' Post has been deleted');
+            $this->redirect()->toRoute('blog');
+        }
     }
 }
