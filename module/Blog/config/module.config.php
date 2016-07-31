@@ -64,6 +64,19 @@ return array(
                             ),
                         ),
                     ),
+            'edit' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/blog/edit/:postId',
+                    'constraints' => array(
+                        'postId' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Blog\Controller\Index',
+                        'action'     => 'edit',
+                    ),
+                ),
+            ),
         ),
     ),
 

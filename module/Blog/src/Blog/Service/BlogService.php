@@ -29,4 +29,16 @@ interface BlogService
      * @return Post|null
      */
     public function find($categorySlug, $postSlug);
+    /**
+     *
+     * @param int $postId
+     * @return null|Post
+     */
+    public function findById($postId);
+    /**
+     *
+     * @param Post $post
+     * @return null|void
+     */
+    public function update(Post $post);
 }

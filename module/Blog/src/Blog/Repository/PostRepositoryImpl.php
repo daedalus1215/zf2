@@ -152,4 +152,24 @@ class PostRepositoryImpl implements PostRepository
         return ($resultSet->count() > 0) ? $resultSet->current() : null;
     }
 
+    public function update(Post $post)
+    {
+        $sql = Sql($this->adapter);
+        $sqlUpdate = $sql->update();
+
+        $sqlUpdate->set(array(
+            'title' => $post->getTitle(),
+            'slug' => $post->getSlug(),
+            'content' => $post->getContent(),
+            'category_id' => $post->getCategory(),
+            'title' => $post->getTitle(),
+        ));
+        $sqlUpdate->where(array(
+            'id' => $post->getId()
+        ));
+
+        $stmt = $sql->prepareStatementForSqlObject($sqlUpdate);
+        $stmt->execute();
+    }
+
 }

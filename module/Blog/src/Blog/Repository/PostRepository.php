@@ -44,4 +44,11 @@ interface PostRepository extends RepositoryInterface
      * @return null|Post
      */
     public function findById($postId);
+    /**
+     *
+     * @param Post $post
+     * @return void|null
+     */
+    public function update(Post $post);
+
 }

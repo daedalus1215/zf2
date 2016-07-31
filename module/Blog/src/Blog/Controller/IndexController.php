@@ -82,4 +82,33 @@ class IndexController extends AbstractActionController
 
     }
 
+
+
+    public function edit()
+    {
+        $form = new Edit();
+
+        if ($this->request->isPost) {
+            $post = new Post();
+            $form->bind($post);
+            $form->setData($this->request->getPost());
+
+            if ($form->isValid()) {
+                $blogService = $this->getBlogService();
+                $blogService->update($post);
+                $this->flashMessenger()->addSuccessMessage('Post has been updated!');
+            } else {
+                $post = $this->getBlogService()->findById($this->params()->fromRoute('postId'));
+
+                if ($post == null) {
+                    $this->getResponse()->setStatusCode(Response::STATUS_CODE_404);
+                } else {
+                    $form->bind($post); // populate the form with the post.
+                    
+                }
+            }
+
+        }
+    }
+
 }
