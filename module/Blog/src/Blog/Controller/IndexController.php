@@ -6,7 +6,6 @@ use Blog\Entity\Post;
 use Blog\Form\Add;
 use Blog\Form\Edit;
 use Blog\InputFilter\AddPost;
-use Blog\Service\BlogService;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -98,7 +97,8 @@ class IndexController extends AbstractActionController
                 $blogService = $this->getBlogService();
                 $blogService->update($post);
                 $this->flashMessenger()->addSuccessMessage('Post has been updated!');
-            } else {
+            } 
+        }else {
                 $post = $this->getBlogService()->findById($this->params()->fromRoute('postId'));
 
                 if ($post == null) {
@@ -106,13 +106,11 @@ class IndexController extends AbstractActionController
                 } else {
                     $form->bind($post); // populate the form with the post.
 
+                    $form->get('category_id')->setValue($post->getCategory()->getId());
                     $form->get('slug')->setValue($post->getSlug());
                     $form->get('id')->setValue($post->getId());
-                    $form->get('category_id')->setValue($post->getCategory()->getId());
                 }
             }
-
-        }
 
         return new ViewModel(array(
             'form' => $form

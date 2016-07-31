@@ -41,7 +41,7 @@ class Add extends Form
         $content->setLabel('Content');
         $content->setAttribute('class', 'form-control');
 
-        $category = new Element\Select('category');
+        $category = new Element\Select('category_id');
         $category->setLabel('Category');
         $category->setAttribute('class', 'form-control');
         $category->setValueOptions(array(

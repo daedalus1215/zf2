@@ -6,7 +6,7 @@ use Blog\Entity\Hydrator\PostHydrator;
 use Blog\Entity\Post;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\Sql\Sql;
-use Zend\Hydrator\Aggregate\AggregateHydrator;
+use Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
@@ -55,7 +55,8 @@ class PostRepositoryImpl implements PostRepository
             ]);
         $sqlSelect->join(['c' => 'category'],
                         'c.id = p.category_id',
-                        ['category_id' => 'id', 'name', 'category_slug' => 'slug']
+                        ['category_id' => 'id', 'name', 'category_slug' => 'slug'],
+                        $sqlSelect::JOIN_INNER
                 );
         $sqlSelect->order('p.id DESC');
 
@@ -154,21 +155,20 @@ class PostRepositoryImpl implements PostRepository
 
     public function update(Post $post)
     {
-        $sql = Sql($this->adapter);
-        $sqlUpdate = $sql->update();
+        $sql = new Sql($this->adapter);
+        $sqlUpdate = $sql->update('post');
 
         $sqlUpdate->set(array(
             'title' => $post->getTitle(),
             'slug' => $post->getSlug(),
             'content' => $post->getContent(),
-            'category_id' => $post->getCategory(),
-            'title' => $post->getTitle(),
-        ));
-        $sqlUpdate->where(array(
+            'category_id' => $post->getCategory()->getId(),
+        ))->where(array(
             'id' => $post->getId()
         ));
 
         $stmt = $sql->prepareStatementForSqlObject($sqlUpdate);
+        $d = $stmt->getSql();
         $stmt->execute();
     }
 

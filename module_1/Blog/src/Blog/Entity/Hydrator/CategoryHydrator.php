@@ -1,27 +1,18 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace Blog\Entity\Hydrator;
 
 use Blog\Entity\Category;
 use Blog\Entity\Post;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
-/**
- * Description of CategoryHydrator
- *
- * @author ladams
- */
 class CategoryHydrator implements HydratorInterface
 {
     /**
+     * Extract values from an object
      *
-     * @param Post $object
+     * @param  object $object
+     *
      * @return array
      */
     public function extract($object)
@@ -32,17 +23,19 @@ class CategoryHydrator implements HydratorInterface
 
         $category = $object->getCategory();
 
-        return [
+        return array(
             'id' => $category->getId(),
             'name' => $category->getName(),
-            'slug' =>$category->getSlug(),
-        ];
+            'slug' => $category->getSlug(),
+        );
     }
 
     /**
      * Hydrate $object with the provided $data.
-     * @param array $data
-     * @param object $object
+     *
+     * @param  array $data
+     * @param  object $object
+     *
      * @return object
      */
     public function hydrate(array $data, $object)
@@ -50,6 +43,7 @@ class CategoryHydrator implements HydratorInterface
         if (!$object instanceof Post) {
             return $object;
         }
+
         $category = new Category();
         $category->setId(isset($data['category_id']) ? intval($data['category_id']) : null);
         $category->setName(isset($data['name']) ? $data['name'] : null);
@@ -58,6 +52,4 @@ class CategoryHydrator implements HydratorInterface
 
         return $object;
     }
-
-//put your code here
-}
+} 
