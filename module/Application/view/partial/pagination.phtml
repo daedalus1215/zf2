@@ -1,32 +1,51 @@
 <?php if ($pageCount): ?>
-    <div class="paginationControl">
-      <!-- previous page links -->
+<nav>
+    <ul class="pagination">
+        <!-- previous page links -->
         <?php if (isset($previous)): ?>
-            <a href="<?php echo $this->url($route, array('page' => $previous)); ?>">
-              &lt; Previous
-            </a>
+            <li>
+                <a href="<?php echo $this->url($route, array('page' => $previous)); ?>" aria-label="Previous">
+                  &lt; Previous
+                </a>
+            </li>
         <?php else: ?>
-            <span class="disabled">&lt; Previous</span>
+            <li class="disabled">
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
         <?php endif; ?>
-
         <!-- Numbered page links -->
         <?php foreach($pagesInRange as $page) : ?>
             <?php if ($page != $current) : ?>
-                <a href="<?php echo $this->url($route, array('page' => $page)); ?>">
-                  <?php echo $page; ?>
-                </a>
+                <li>
+                    <a href="<?php echo $this->url($route, array('page' => $page)); ?>">
+                      <?php echo $page; ?>
+                    </a>
+                </li>
             <?php else: ?>
-                <?php echo $page; ?>
+                <li class="disabled">
+                  <a href="#">
+                    <?php echo $page; ?>
+                  </a>
+                </li>
             <?php endif;?>
         <?php endforeach;?>
 
         <!-- Next page link -->
         <?php if (isset($next)) : ?>
-            <a href="<?php echo $this->url($route, array('page' => $next));?>">
-              Next &gt;
-            </a>
+            <li>
+                <a href="<?php echo $this->url($route, array('page' => $next));?>" arial-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
         <?php else: ?>
-            <span class="disabled">Next &gt;</span>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
         <?php endif; ?>
-    </div>
+    </ul>
+</nav>
 <?php endif; ?>
