@@ -13,6 +13,16 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
 
+    /**
+     *
+     * @return BlogService
+     */
+    protected function getBlogService()
+    {
+        return $this->getServiceLocator()->get('Blog\Service\BlogService');
+    }
+
+
     public function indexAction()
     {
         $variables = [];
@@ -53,20 +63,13 @@ class IndexController extends AbstractActionController
         return new ViewModel($variables);
     }
 
-    /**
-     *
-     * @return BlogService
-     */
-    protected function getBlogService()
-    {
-        return $this->getServiceLocator('Blog\Service\BlogService');
-    }
+
 
 
     public function viewPostAction()
     {
-        $categorySlug = $this->param()->fromRoute('categorySlug');
-        $postSlug = $this->param()->fromRoute('postSlug');
+        $categorySlug = $this->params()->fromRoute('categorySlug');
+        $postSlug = $this->params()->fromRoute('postSlug');
         $post = $this->getBlogService()->find($categorySlug, $postSlug);
 
         if ($post == null) {

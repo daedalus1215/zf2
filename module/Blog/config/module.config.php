@@ -47,10 +47,13 @@ return array(
                             ),
                         ),
                     ),
-                    'display-post' => array(
+
+                ),
+            ),
+            'display-post' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'blog/posts/:categorySlug/:postSlug',
+                            'route' => '/blog/posts/:categorySlug/:postSlug',
                             'constraints' => array(
                                 'categorySlug' => '[a-zA-Z0-9-]+',
                                 'postSlug'     => '[a-zA-Z0-9-]+'
@@ -61,8 +64,6 @@ return array(
                             ),
                         ),
                     ),
-                ),
-            ),
         ),
     ),
 

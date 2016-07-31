@@ -5,18 +5,18 @@
         <?php
             $postedAt = $this->dateFormat(
                     $post->getCreated(),
-                    IntDateFormatter::MEDIUM, // Date
-                    IntDateFormatter::MEDIUM, // Time
+                    IntlDateFormatter::MEDIUM, // Date
+                    IntlDateFormatter::MEDIUM, // Time
                     'en_US'
                 );
         ?>
         <h2>
-          <a href="<?php echo $this->url('display-root', array('categorySlug' => $post->getCategory()->getSlug(), 'postSlug' => $post->getSlug())); ?>">
+          <a href="<?php echo $this->url('display-post', array('categorySlug' => $post->getCategory()->getSlug(), 'postSlug' => $post->getSlug())); ?>">
             <?php echo $this->escapeHtml($post->getTitle()); ?>
           </a>
         </h2>
         <br />
-        <?php echo sprintf($this->translate('Posted on %s in the %s category', $postedAt, $this->escapeHtml($post->getCategory()->getName()))); ?>
+        <?php echo sprintf($this->translate('Posted on %s in the %s category'), $postedAt, $this->escapeHtml($post->getCategory()->getName())); ?>
         <?php /** @var \Blog\Entity\Post $post */?>
             <strong>ID:</strong> <?php echo $this->escapeHtml($post->getId()); ?>
             <br/>

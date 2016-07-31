@@ -117,4 +117,39 @@ class PostRepositoryImpl implements PostRepository
         // return the post or return null.
         return ($resultSet->count() > 0) ? $resultSet->current() : null;
     }
+
+    public function findById($postId)
+    {
+        $sql = new Sql($this->adapter);
+
+        $sqlSelect = $sql->select();
+        $sqlSelect->from(['p' =>'post']);
+        $sqlSelect->columns([
+                'id',
+                'title',
+                'slug',
+                'content',
+                'created'
+            ]);
+        $sqlSelect->join(['c' => 'category'],
+                        'c.id = p.category_id',
+                        ['category_id' => 'id', 'name', 'category_slug' => 'slug']
+                );
+        $sqlSelect->where(array(
+            'p.id' => $postId
+        ));
+
+        $stmt = $sql->prepareStatementForSqlObject($sqlSelect);
+        $result = $stmt->execute();
+
+        $hydrator = new AggregateHydrator();
+        $hydrator->add(new PostHydrator());
+        $hydrator->add(new CategoryHydrator());
+
+        $resultSet = new HydratingResultSet($hydrator, new Post()); // populate the new post object
+        $resultSet->initialize($result); // initializes the resultset and sets the data source.
+        // return the post or return null.
+        return ($resultSet->count() > 0) ? $resultSet->current() : null;
+    }
+
 }

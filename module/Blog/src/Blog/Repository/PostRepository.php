@@ -38,4 +38,10 @@ interface PostRepository extends RepositoryInterface
      * @return mixed
      */
     public function find($categorySlug, $postSlug);
+    /**
+     * Grab a specific post via an ID
+     * @param int $postId
+     * @return null|Post
+     */
+    public function findById($postId);
 }
