@@ -77,6 +77,19 @@ return array(
                     ),
                 ),
             ),
+            'delete' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/blog/delete/:postId',
+                    'constraints' => array(
+                        'postId' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Blog\Controller\Index',
+                        'action'     => 'delete',
+                    ),
+                ),
+            ),
         ),
     ),
 
