@@ -2,6 +2,7 @@
 namespace User\InputFilter;
 
 use Zend\Db\Adapter\Adapter;
+use Zend\I18n\Validator\Alnum;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\StringLength;
@@ -35,18 +36,18 @@ class AddUser extends InputFilter
 
         $email = new Input('email');
         $email->setRequired(true);
-        $email->setValidatorChain($this->getNameValidatorChain());
+        $email->setValidatorChain($this->getEmailValidatorChain());
         $email->setFilterChain($this->getStringTrimFilterChain());
 
         $password = new Input('password');
         $password->setRequired(true);
-        $password->setValidatorChain($this->getNameValidatorChain());
-        $password->setFilterChain($this->getStringTrimFilterChain());
+        -$password->setValidatorChain($this->getPasswordValidatorChain());
+        -$password->setFilterChain($this->getStringTrimFilterChain());
 
         $repeatPassword = new Input('repeatPassword');
         $repeatPassword->setRequired(true);
-        $repeatPassword->setValidatorChain($this->getNameValidatorChain());
-        $repeatPassword->setFilterChain($this->getStringTrimFilterChain());
+        -$repeatPassword->setValidatorChain($this->getRepeatPasswordValidatorChain());
+        -$repeatPassword->setFilterChain($this->getStringTrimFilterChain());
 
 
         $this->add($firstName);
@@ -62,6 +63,7 @@ class AddUser extends InputFilter
 
     /**
      * Gets the validation chain for the first name and last name inputs
+     *
      * @return ValidatorChain
      */
     protected function getNameValidatorChain()
@@ -79,10 +81,44 @@ class AddUser extends InputFilter
 
     /**
      * Gets the validation chain for the email input
+     *
+     * @return ValidatorChain
      */
     protected function getStringTrimFilterChain()
     {
+        $stringLength = new StringLength();
+        $stringLength->setMax(50);
 
+        $emailDoesNotExist = new Validator\Db\NoRecordExists(array(
+            'table' => 'user',
+            'field' => 'email',
+            'adapter' => $this->dbAdapter
+        ));
+
+        $emailDoesNotExist->setMessage('This e-mail address is already in use');
+
+        $validatorChain = new ValidatorChain();
+        $validatorChain->attach($stringLength, true);
+        $validatorChain->attach(new Validator\EmailAddress(), true);
+        $validatorChain->attach($emailDoesNotExist, true);
+
+        return $validatorChain;
+    }
+
+
+    protected function getPasswordValidatorChain()
+    {
+        $stringLength = new StringLength();
+        $stringLength->setMax(6);
+
+        $oneNumber = new Regex('/\d/');
+        $oneNumber->setMessage('Must contain at least one number');
+
+        $validatorChain = new ValidatorChain();
+        $validatorChain->attach($stringLength);
+        $validatorChain->attach($oneNumber);
+
+        return $validatorChain;
     }
 
 
