@@ -5,6 +5,10 @@ use Zend\Db\Adapter\Adapter;
 use Zend\I18n\Validator\Alnum;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\Db\NoRecordExists;
+use Zend\Validator\EmailAddress;
+use Zend\Validator\Identical;
+use Zend\Validator\Regex;
 use Zend\Validator\StringLength;
 use Zend\Validator\ValidatorChain;
 /**
@@ -41,23 +45,19 @@ class AddUser extends InputFilter
 
         $password = new Input('password');
         $password->setRequired(true);
-        -$password->setValidatorChain($this->getPasswordValidatorChain());
-        -$password->setFilterChain($this->getStringTrimFilterChain());
+        $password->setValidatorChain($this->getPasswordValidatorChain());
+        $password->setFilterChain($this->getStringTrimFilterChain());
 
         $repeatPassword = new Input('repeatPassword');
         $repeatPassword->setRequired(true);
-        -$repeatPassword->setValidatorChain($this->getRepeatPasswordValidatorChain());
-        -$repeatPassword->setFilterChain($this->getStringTrimFilterChain());
-
+        $repeatPassword->setValidatorChain($this->getRepeatPasswordValidatorChain());
+        $repeatPassword->setFilterChain($this->getStringTrimFilterChain());
 
         $this->add($firstName);
         $this->add($lastName);
         $this->add($email);
         $this->add($password);
         $this->add($repeatPassword);
-
-
-
     }
 
 
@@ -84,34 +84,39 @@ class AddUser extends InputFilter
      *
      * @return ValidatorChain
      */
-    protected function getStringTrimFilterChain()
+    protected function getEmailValidatorChain()
     {
         $stringLength = new StringLength();
         $stringLength->setMax(50);
 
-        $emailDoesNotExist = new Validator\Db\NoRecordExists(array(
-            'table' => 'user',
-            'field' => 'email',
-            'adapter' => $this->dbAdapter
-        ));
+        $emailDoesNotExist = new NoRecordExists(
+            array(
+                'table' => 'user',
+                'field' => 'email',
+                'adapter' => $this->dbAdapter
+            )
+        );
 
         $emailDoesNotExist->setMessage('This e-mail address is already in use');
 
         $validatorChain = new ValidatorChain();
         $validatorChain->attach($stringLength, true);
-        $validatorChain->attach(new Validator\EmailAddress(), true);
+        $validatorChain->attach(new EmailAddress(), true);
         $validatorChain->attach($emailDoesNotExist, true);
 
         return $validatorChain;
     }
 
-
+    /**
+     *
+     * @return ValidatorChain
+     */
     protected function getPasswordValidatorChain()
     {
         $stringLength = new StringLength();
         $stringLength->setMax(6);
 
-        $oneNumber = new Regex('/\d/');
+        $oneNumber = new Regex('/\d/'); //checking to make sure it has at least one number
         $oneNumber->setMessage('Must contain at least one number');
 
         $validatorChain = new ValidatorChain();
@@ -121,6 +126,31 @@ class AddUser extends InputFilter
         return $validatorChain;
     }
 
+    /**
+     *
+     * @return ValidatorChain
+     */
+    protected function getRepeatPasswordValidatorChain()
+    {
+        $identical = new Identical();
+        $identical->setToken('password'); // Name of the input whose value to match
+        $identical->setMessage('Passwords must match');
 
+        $validatorChain = new ValidatorChain();
+        $validatorChain->attach($identical);
 
+        return $validatorChain;
+    }
+
+    /**
+     *
+     * @return \User\InputFilter\FilterChain
+     */
+    protected function getStringTrimFilterChain()
+    {
+        $filterChain = new FilterChain();
+        $filterChain->attach(new StringTrim());
+
+        return $filterChain;
+    }
 }
