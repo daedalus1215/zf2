@@ -40,8 +40,8 @@ return array(
     ),
 
     'controllers' => array(
-        'invokables' => array(
-            'User\Controller\Index' => 'User\Controller\IndexController'
+        'factories' => array(
+            'User\Controller\Index' => 'User\Factory\IndexControllerFactory'
         ),
     ),
 

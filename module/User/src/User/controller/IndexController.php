@@ -12,7 +12,18 @@ use Zend\View\Model\ViewModel;
  */
 class IndexController extends AbstractActionController
 {
-
+    /**
+     *
+     * @var \Zend\ServiceManager\ServiceManager $serviceManager
+     */
+    protected $serviceManager;
+    /**
+     * 
+     * @param \Zend\ServiceManager\ServiceManager $serviceManager
+     */
+    public function __construct(\Zend\ServiceManager $serviceManager) {
+        $this->serviceManager = $serviceManager;
+    }
     public function indexAction()
     {
         return new ViewModel();

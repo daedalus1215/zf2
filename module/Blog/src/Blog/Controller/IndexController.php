@@ -12,14 +12,26 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
-
+    /**
+     *
+     * @var \Zend\ServiceManager\ServiceManager
+     */
+    protected $serviceManager;
+    /**
+     * 
+     * @param \Zend\ServiceManager\ServiceManager $serviceManager
+     */
+    public function __construct(\Zend\ServiceManager\ServiceManager $serviceManager) 
+    {
+        $this->serviceManager = $serviceManager;
+    }
     /**
      *
      * @return BlogService
      */
     protected function getBlogService()
     {
-        return $this->getServiceLocator()->get('Blog\Service\BlogService');
+        return $this->serviceManager->get('Blog\Service\BlogService');
     }
 
 
