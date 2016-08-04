@@ -21,7 +21,7 @@ class IndexController extends AbstractActionController
      * 
      * @param \Zend\ServiceManager\ServiceManager $serviceManager
      */
-    public function __construct(\Zend\ServiceManager $serviceManager) {
+    public function __construct(\Zend\ServiceManager\ServiceManager $serviceManager) {
         $this->serviceManager = $serviceManager;
     }
     public function indexAction()

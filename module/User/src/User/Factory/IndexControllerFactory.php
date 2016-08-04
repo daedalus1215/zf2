@@ -1,7 +1,7 @@
 <?php
 namespace User\Factory;
 
-use User\Controller\IndexController;
+
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -10,13 +10,13 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  *
  * @author the_admin
  */
-class IndexContollerFactory implements FactoryInterface
+class IndexControllerFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator) 
     {
         $serviceManager = $serviceLocator->getServiceLocator();
-        $indexController = new IndexController($serviceManager);
-        return $serviceManager;
+        $indexController = new \User\Controller\IndexController($serviceManager);
+        return $indexController;
     }
 
 }
