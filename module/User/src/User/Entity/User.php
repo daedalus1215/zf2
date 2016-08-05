@@ -37,6 +37,22 @@ class User
      * @var string $email
      */
     protected $email;
+    /**
+     *
+     * @var string
+     */
+    protected $createdDate;
+    /**
+     *
+     * @var string
+     */
+    protected $userGroup;
+    /**
+     *
+     * @var string
+     */
+    protected $authorId;
+
 
     /**
      *
