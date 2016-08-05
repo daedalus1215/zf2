@@ -21,6 +21,9 @@ class UserHydrator implements HydratorInterface
             'lastName'  => $object->getLastName(),
             'username'  => $object->getUsername(),
             'email'     => $object->getEmail(),
+            'createdDate' => $object->getCreatedDate(),
+            'userGroup'   => $object->getUserGroup(),
+            'authorId'    => $object->getAuthorId(),
         );
     }
 
@@ -32,12 +35,14 @@ class UserHydrator implements HydratorInterface
         /**
          * @var User $object
          */
-        $object->setId(isset($data)?:null);
-        $object->setFirstName(isset($data)?:null);
-        $object->setLastName(isset($data)?:null);
-        $object->setUsername(isset($data)?:null);
-        $object->setEmail(isset($data)?:null);
-
+        $object->setId(isset($data['id'])?:null);
+        $object->setFirstName(isset($data['firstName'])?:null);
+        $object->setLastName(isset($data['lastName'])?:null);
+        $object->setUsername(isset($data['username'])?:null);
+        $object->setEmail(isset($data['email'])?:null);
+        $object->setCreatedDate(isset($data['createdDate'])?:null);
+        $object->setUserGroup(isset($data['userGroup'])?:null);
+        $object->setAuthorId(isset($data['authorId'])?:null);
         return $object;
     }
 

@@ -7,31 +7,26 @@
  */
 class User
 {
-
     /**
      *
      * @var int
      */
     protected $id;
-
     /**
      *
      * @var string $firstName
      */
     protected $firstName;
-
     /**
      *
      * @var string $lastName
      */
     protected $lastName;
-
     /**
      *
      * @var string $username
      */
     protected $username;
-
     /**
      *
      * @var string $email
@@ -52,6 +47,56 @@ class User
      * @var string
      */
     protected $authorId;
+
+    /**
+     *
+     * @return $string
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+    /**
+     *
+     * @return int
+     */
+    public function getUserGroup()
+    {
+        return $this->userGroup;
+    }
+    /**
+     *
+     * @return int
+     */
+    public function getAuthorId()
+    {
+        return $this->authorId;
+    }
+    /**
+     *
+     * @param string $createdDate
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+    }
+    /**
+     *
+     * @param int $userGroup
+     */
+    public function setUserGroup($userGroup)
+    {
+        $this->userGroup = $userGroup;
+    }
+    /**
+     *
+     * @param int $authorId
+     */
+    public function setAuthorId($authorId)
+    {
+        $this->authorId = $authorId;
+    }
+
 
 
     /**
