@@ -18,14 +18,19 @@ class IndexController extends AbstractActionController
      */
     protected $serviceManager;
     /**
-     * 
+     *
      * @param \Zend\ServiceManager\ServiceManager $serviceManager
      */
     public function __construct(\Zend\ServiceManager\ServiceManager $serviceManager) {
         $this->serviceManager = $serviceManager;
     }
+
     public function indexAction()
     {
+        //@TODO stopped here.
+        //$dbAdapter = $serviceManager->get('Zend');
+
+
         return new ViewModel();
     }
 }
