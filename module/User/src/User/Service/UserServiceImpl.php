@@ -1,5 +1,6 @@
 <?php
 namespace User\Service;
+
 use User\Service\UserService;
 
 /*
@@ -14,26 +15,36 @@ use User\Service\UserService;
  * @author ladams
  */
 class UserServiceImpl implements UserService
-{
+{   /**
+ *
+ * @param \User\Entity\User $user
+ */
     public function delete(\User\Entity\User $user)
     {
 
     }
-
+    /**
+     *
+     * @param type $id
+     */
     public function findById($id)
     {
 
     }
-
+    /**
+     *
+     * @param \User\Entity\User $user
+     */
     public function save(\User\Entity\User $user)
     {
 
     }
-
+    /**
+     *
+     * @param \User\Entity\User $user
+     */
     public function update(\User\Entity\User $user)
     {
 
     }
-
-//put your code here
 }
