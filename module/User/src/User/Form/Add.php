@@ -1,7 +1,13 @@
 <?php
 namespace User\Form;
 
+use User\Entity\Hydrator\UserHydrator;
+use Zend\Form\Element\Email;
+use Zend\Form\Element\Password;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
 use Zend\Form\Form;
+use Zend\Hydrator\Aggregate\AggregateHydrator;
 
 /**
  * Description of Add
@@ -15,32 +21,32 @@ class Add extends Form
     {
         parent::__construct('add'); // pass in the name of the form.
 
-        $hydrator = new \Zend\Hydrator\Aggregate\AggregateHydrator();
+        $hydrator = new AggregateHydrator();
         $hydrator->add(new UserHydrator());
         $this->setHydrator($hydrator);
 
 
-        $firstName = new Element\Text('first_name');
+        $firstName = new Text('first_name');
         $firstName->setLabel('First Name');
         $firstName->setAttribute('class', 'form-control');
 
-        $lastName = new Element\Text('last_name');
+        $lastName = new Text('last_name');
         $lastName->setLabel('Last Name');
         $lastName->setAttribute('class', 'form-control');
 
-        $email = new Element\Email('email');
+        $email = new Email('email');
         $email->setLabel('Email Address');
         $email->setAttribute('class', 'form-control');
 
-        $password = new Element\Password('password');
+        $password = new Password('password');
         $password->setLabel('Password');
         $password->setAttribute('class', 'form-control');
 
-        $repeatPassword = new Element\Password('repeat_password');
+        $repeatPassword = new Password('repeat_password');
         $repeatPassword->setLabel('Repeat Password');
         $repeatPassword->setAttribute('class', 'form-control');
 
-        $submit = new Element\Submit('submit');
+        $submit = new Submit('submit');
         $submit->setValue('Add User');
         $submit->setAttribute('class', 'btn btn-primary');
 

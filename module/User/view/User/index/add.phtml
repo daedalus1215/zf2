@@ -1,0 +1,31 @@
+<h1>Add User</h1>
+
+<?php 
+    $form = $this->form;
+    $form->prepare();
+    echo $this->form()->openTag($form);
+?>
+
+
+<div class="form-group">
+    <?php echo $this->formRow($form->get('first_name'));?>
+</div>
+<div>
+    <?php echo $this->formRow($form->get('last_name')); ?>
+</div>
+<div>
+    <?php echo $this->formRow($form->get('email')); ?>
+</div>
+<div>
+    <?php echo $this->formRow($form->get('password'));?>
+</div>
+<div>
+    <?php echo $this->formRow($form->get('repeat_password')); ?>
+</div>
+<div>
+    <?php $this->form()->closeTag($form->get('submit')); ?>  
+</div>    
+
+<?php echo $this->form()->closeTag(); ?>
+
+      

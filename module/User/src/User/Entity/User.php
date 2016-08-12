@@ -148,16 +148,7 @@ class User
     public function getUsername()
     {
         return $this->username;
-    }
-
-    /**
-     *
-     * @return string $email
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
+    }   
 
     /**
      *
@@ -202,6 +193,14 @@ class User
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+    /**
+     *
+     * @return string $email
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
 }

@@ -17,7 +17,6 @@ return array(
                         '__NAMESPACE__' => 'User\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
-                        'page'          => 1,
                     ),
                 ),
                 'may_terminate' => true,
@@ -35,7 +34,7 @@ return array(
                         ),
                     ),
                 ),
-            ),
+            ),          
         ),
     ),
 
