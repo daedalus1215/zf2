@@ -1,0 +1,17 @@
+<h1>Login Page</h1>
+<?php 
+/** @var $form \User\Form\Login */
+    $form = $this->form();
+    $form->prepare();    
+    echo $this->form()->openTag($form);
+?>
+
+<div>
+    <?php echo $this->formRow($form->get('email')); ?>
+</div>
+<div>
+    <?php echo $this->formRow($form->get('password')); ?>
+</div>
+
+<?php echo $this->formSubmit($form->get('submit'));?>
+<?php $this->form()->closeTag(); ?>
