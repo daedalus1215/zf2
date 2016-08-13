@@ -89,6 +89,7 @@ class AddUser extends InputFilter
     protected function getEmailValidatorChain()
     {
         $stringLength = new StringLength();
+        $stringLength->setMin(2);
         $stringLength->setMax(50);
 
         $emailDoesNotExist = new NoRecordExists(
