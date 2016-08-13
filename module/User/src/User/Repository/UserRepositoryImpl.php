@@ -44,4 +44,24 @@ class UserRepositoryImpl implements UserRepository
 
         return $encrypter->create($clearTextPassword);
     }
+        
+    public function getAuthenticationAdapter() 
+    {
+        $callback = function($encryptedPassword, $clearTextedPassword) {
+            $encrypter = new Bcrypt();
+            $encrypter->setCost(12);
+            
+            return $encrypter->verify($clearTextedPassword, $encryptedPassword);
+        };
+        
+        $authenticationAdapter = new \Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter(
+                $this->adapter,
+                'user', // Table
+                'email', // Identity column 
+                'password', // Credential column
+                $callback
+        );
+        
+        return $authenticationAdapter;
+    }
 }

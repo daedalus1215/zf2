@@ -22,4 +22,9 @@ interface UserRepository extends RepositoryInterface
      * @param type $clearTextPassword
      */
     public function generatePasswords($clearTextPassword);
+    
+    /**
+     * @return \Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter
+     */
+    public function getAuthenticationAdapter();            
 }
