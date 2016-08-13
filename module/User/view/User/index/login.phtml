@@ -1,7 +1,7 @@
 <h1>Login Page</h1>
 <?php 
 /** @var $form \User\Form\Login */
-    $form = $this->form();
+    $form = $this->form;
     $form->prepare();    
     echo $this->form()->openTag($form);
 ?>
@@ -12,6 +12,7 @@
 <div class="form-group">
     <?php echo $this->formRow($form->get('password')); ?>
 </div>
-
-<?php echo $this->formSubmit($form->get('submit'));?>
+<div class="form-group">
+    <?php echo $this->formSubmit($form->get('submit'));?>
+</div>
 <?php $this->form()->closeTag(); ?>

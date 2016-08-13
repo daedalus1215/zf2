@@ -2,6 +2,7 @@
 namespace User\Form;
 
 use Zend\Form\Element\Email;
+use Zend\Form\Element\Password;
 use Zend\Form\Element\Submit;
 use Zend\Form\Form;
 
@@ -24,14 +25,14 @@ class Login extends Form
         
         $username = new Email('email');
         $username->setLabel("Email");
-        $username->setAttribute(['class' => 'form-control']);
+        $username->setAttribute('class', 'form-control');
         
-        $password = new Pasword('password');
+        $password = new Password('password');
         $password->setLabel('Password');
-        $password->setAttribute(['class' => 'form-control']);
+        $password->setAttribute('class', 'form-control');
         
         $submit = new Submit('submit');
-        $submit->setLabel('Login');
+        $submit->setValue('Login');
         $submit->setAttribute('class', 'btn btn-primary');
         
         $this->add($username);
