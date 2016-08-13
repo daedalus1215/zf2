@@ -1,7 +1,14 @@
 <?php
 namespace User\InputFilter;
 
+use Zend\Filter\FilterChain;
+use Zend\Filter\StringTrim;
+use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\EmailAddress;
+use Zend\Validator\StringLength;
+use Zend\Validator\ValidatorChain;
+
 
 /**
  * Description of Login
@@ -28,17 +35,17 @@ class Login extends InputFilter
     
     /**
      * Gets the validation chain for the email input
-     * @return \Zend\Validator\ValidatorChain
+     * @return ValidatorChain
      */
     protected function getEmailValidatorChain()
     {
-       $stringLength = new Validator\StringLength(); 
+       $stringLength = new StringLength(); 
        $stringLength->setMin(2);
        $stringLength->setMax(50);
        
-       $validatorChain = new \Zend\Validator\ValidatorChain();
+       $validatorChain = new ValidatorChain();
        $validatorChain->attach($stringLength, true);
-       $validatorChain->attach(new Validator\EmailAddress(), true);
+       $validatorChain->attach(new EmailAddress(), true);
        
        return $validatorChain;            
     }

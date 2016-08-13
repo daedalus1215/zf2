@@ -14,6 +14,10 @@ return [
         'User\InputFilter\AddUser' => function(ServiceLocatorInterface $serviceLocator) {
             return new \User\InputFilter\AddUser($serviceLocator->get('Zend\Db\Adapter\Adapter'));
         },
+                
+        'User\InputFilter\Login' => function(ServiceLocatorInterface $serviceLocator) {
+            return new \User\InputFilter\Login($serviceLocator->get('Zend\Db\Adapter\Adapter'));
+        },
         
         'User\Service\UserService' => function(ServiceLocatorInterface $serviceLocator) {
             $userService = new UserServiceImpl();
