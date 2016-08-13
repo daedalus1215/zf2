@@ -10,7 +10,7 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\View\Model\ViewModel;
 
 /**
- * Description of IndexController
+ * It's the IndexController - w/e that is.
  *
  * @author ladams
  */
