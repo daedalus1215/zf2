@@ -1,7 +1,8 @@
 <?php
 
+use Zend\Form\Element\Email;
+use Zend\Form\Element\Submit;
 use Zend\Form\Form;
-use Zend\Hydrator\Aggregate\AggregateHydrator;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,12 +23,18 @@ class Login extends Form
         
         $username = new Email('email');
         $username->setLabel("Email");
-        $username->setAttribute('class', 'form-control');
+        $username->setAttribute(['class' => 'form-control']);
         
         $password = new Pasword('password');
         $password->setLabel('Password');
-        $password->setAttribute('class', 'form-control');
+        $password->setAttribute(['class' => 'form-control']);
         
+        $submit = new Submit('submit');
+        $submit->setLabel('Login');
+        $submit->setAttribute('class', 'btn btn-primary');
         
+        $this->add($username);
+        $this->add($password);
+        $this->add($submit);
     }
 }
