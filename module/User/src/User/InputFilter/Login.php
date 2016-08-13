@@ -20,7 +20,7 @@ class Login extends InputFilter
         
         $password = new Input('password');
         $password->setRequired(true);
-        $password->setFilterChain($this->setStringTrimFilterChain());
+        $password->setFilterChain($this->getStringTrimFilterChain());
         
         $this->add($email);
         $this->add($password);        
@@ -43,10 +43,15 @@ class Login extends InputFilter
        return $validatorChain;            
     }
     
-    
+    /**
+     * 
+     * @return \User\InputFilter\FilterChain
+     */
     protected function getStringTrimFilterChain()
     {
         $filterChain = new FilterChain();
         $filterChain->attach(new StringTrim());
+        
+        return $filterChain;
     }
 }

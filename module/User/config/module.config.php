@@ -34,6 +34,16 @@ return array(
                         ),
                     ),
                 ),
+                'login' => array(
+                    'type' => 'Literal',
+                    'options' => array(
+                        'route' => '/login',
+                        'defaults' => array(
+                            'controller' => 'User\Controller\Index',
+                            'action' => 'login',
+                        ),
+                    ),
+                ),
             ),          
         ),
     ),
