@@ -15,10 +15,12 @@ use User\Service\UserService;
  * @author ladams
  */
 class UserServiceImpl implements UserService
-{   /**
- *
- * @param \User\Entity\User $user
- */
+{   
+    
+    /**
+    *
+    * @param \User\Entity\User $user
+    */
     public function delete(\User\Entity\User $user)
     {
 
@@ -37,7 +39,7 @@ class UserServiceImpl implements UserService
      */
     public function save(\User\Entity\User $user)
     {
-
+        
     }
     /**
      *
@@ -47,4 +49,10 @@ class UserServiceImpl implements UserService
     {
 
     }
+
+    public function add(User $user) 
+    {
+        
+    }
+
 }

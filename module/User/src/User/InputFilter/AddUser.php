@@ -2,6 +2,8 @@
 namespace User\InputFilter;
 
 use Zend\Db\Adapter\Adapter;
+use Zend\Filter\FilterChain;
+use Zend\Filter\StringTrim;
 use Zend\I18n\Validator\Alnum;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;

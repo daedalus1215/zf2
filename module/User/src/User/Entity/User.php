@@ -1,5 +1,5 @@
 <?php
-
+namespace User\Entity;
 /**
  * Description of User
  *

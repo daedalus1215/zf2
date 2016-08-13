@@ -2,9 +2,11 @@
 
 namespace User\Controller;
 
+use User\Entity\User;
 use User\Form\Add;
 use User\Service\UserService;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\ServiceManager\ServiceManager;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -14,18 +16,39 @@ use Zend\View\Model\ViewModel;
  */
 class IndexController extends AbstractActionController
 {
+    
     /**
      *
-     * @var \Zend\ServiceManager\ServiceManager $serviceManager
+     * @var ServiceManager $serviceManager
      */
     protected $serviceManager;
     
     /**
-     *
-     * @param \Zend\ServiceManager\ServiceManager $serviceManager
+     * 
+     * @return ServiceManager
      */
-    public function __construct(\Zend\ServiceManager\ServiceManager $serviceManager) {
+    protected function getServiceManager()
+    {
+        return $this->serviceManager;
+    }
+    
+    /**
+     * 
+     * @param ServiceManager $serviceManager
+     */
+    protected function setServiceManager(ServiceManager $serviceManager) 
+    {
         $this->serviceManager = $serviceManager;
+    }
+
+        
+    /**
+     *
+     * @param ServiceManager $serviceManager
+     */
+    public function __construct(ServiceManager $serviceManager)
+    {
+        $this->setServiceManager($serviceManager);
     }
 
     public function indexAction()
@@ -45,7 +68,7 @@ class IndexController extends AbstractActionController
             $user = new User();
             
             $form->bind($user);
-            $form->setInputFilter($this->getServiceLocator()->get('User\InputFilter\AddUser'));
+            $form->setInputFilter($this->getServiceManager()->get('User\InputFilter\AddUser'));
             $form->setData($this->request->getPost());
             
             if ($form->isValid()) {
@@ -66,7 +89,7 @@ class IndexController extends AbstractActionController
      */
     protected function getUserService()
     {
-        return $this->serviceManager->get('User\Service\UserService');
+        return $this->getServiceManager()->get('User\Service\UserService');
     }
     
 }
