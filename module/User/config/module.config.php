@@ -33,8 +33,9 @@ return array(
                             ),
                         ),
                     ),
-                ),
-                'login' => array(
+                ),                
+            ),    
+            'login' => array(
                     'type' => 'Literal',
                     'options' => array(
                         'route' => '/login',
@@ -44,7 +45,6 @@ return array(
                         ),
                     ),
                 ),
-            ),          
         ),
     ),
 

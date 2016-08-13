@@ -22,7 +22,7 @@ return array(
         'factories' => array(
             'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
             // now all view helpers have this factory available and by extension the authentication Adapter
-            'Zend\Authentication\AuthenticationService' => function(\Zend\ServiceManager\ServiceLocatorAwareInterface $serviceLocator) {
+            'Zend\Authentication\AuthenticationService' => function(Zend\ServiceManager\ServiceLocatorInterface $serviceLocator) {
                 /**
                  * @var \User\Service\UserService $userService
                  */
