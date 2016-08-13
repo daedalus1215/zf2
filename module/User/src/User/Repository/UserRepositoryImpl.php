@@ -2,6 +2,10 @@
 
 namespace User\Repository;
 
+use User\Entity\User;
+use Zend\Crypt\Password\Bcrypt;
+use Zend\Db\Sql\Sql;
+
 /**
  * Description of UserRepositoryImpl
  *
@@ -9,10 +13,15 @@ namespace User\Repository;
  */
 class UserRepositoryImpl implements UserRepository
 {
-
+    use \Zend\Db\Adapter\AdapterAwareTrait;
+    /**
+     * 
+     * @param User 
+     * 
+     */
     public function add(User $user)
     {
-        $sql = new Sql\Sql($this->adapter);
+        $sql = new Sql($this->adapter);
         $insert = $sql->insert()
                 ->values(array(
                     'first_name' => $user->getFirstName(),
@@ -24,7 +33,7 @@ class UserRepositoryImpl implements UserRepository
                 ))
                 ->into('user');
 
-        $statement = $sql->prepareForSqlObject($insert);
+        $statement = $sql->prepareStatementForSqlObject($insert);
         $statement->execute();
     }
 
@@ -35,10 +44,4 @@ class UserRepositoryImpl implements UserRepository
 
         return $encrypter->create($clearTextPassword);
     }
-
-    public function setDbAdapter(\Zend\Db\Adapter\Adapter $adapter)
-    {
-
-    }
-
 }

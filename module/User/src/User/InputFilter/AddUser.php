@@ -30,12 +30,12 @@ class AddUser extends InputFilter
     {
         $this->dbAdapter = $dbAdapter;
 
-        $firstName = new Input('firstName');
+        $firstName = new Input('first_name');
         $firstName->setRequired(true);
         $firstName->setValidatorChain($this->getNameValidatorChain());
         $firstName->setFilterChain($this->getStringTrimFilterChain());
 
-        $lastName = new Input('lastName');
+        $lastName = new Input('last_name');
         $lastName->setRequired(true);
         $lastName->setValidatorChain($this->getNameValidatorChain());
         $lastName->setFilterChain($this->getStringTrimFilterChain());
@@ -50,7 +50,7 @@ class AddUser extends InputFilter
         $password->setValidatorChain($this->getPasswordValidatorChain());
         $password->setFilterChain($this->getStringTrimFilterChain());
 
-        $repeatPassword = new Input('repeatPassword');
+        $repeatPassword = new Input('repeat_password');
         $repeatPassword->setRequired(true);
         $repeatPassword->setValidatorChain($this->getRepeatPasswordValidatorChain());
         $repeatPassword->setFilterChain($this->getStringTrimFilterChain());

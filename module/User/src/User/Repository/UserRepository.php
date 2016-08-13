@@ -1,6 +1,9 @@
 <?php
 namespace User\Repository;
 
+use Application\Repository\RepositoryInterface;
+use User\Entity\User;
+
 /**
  * Description of UserRepository
  *

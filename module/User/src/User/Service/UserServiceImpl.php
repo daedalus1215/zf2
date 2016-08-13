@@ -1,8 +1,8 @@
 <?php
 namespace User\Service;
 
-use User\Service\UserService;
-
+use User\Entity\User;
+use User\Repository\UserRepository;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,44 +15,45 @@ use User\Service\UserService;
  * @author ladams
  */
 class UserServiceImpl implements UserService
-{   
-    
+{      
     /**
-    *
-    * @param \User\Entity\User $user
-    */
-    public function delete(\User\Entity\User $user)
+     *
+     * @var UserRepository $userRepository
+     */
+    protected $userRepository;
+
+    public function getUserRepository()
+    {
+        return $this->userRepository;
+    }
+
+    public function setUserRepository(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+        return $this;
+    }
+
+    public function add(User $user)
+    {
+        $this->userRepository->add($user);
+    }
+
+    public function delete(User $user)
     {
 
     }
-    /**
-     *
-     * @param type $id
-     */
+
     public function findById($id)
     {
 
     }
-    /**
-     *
-     * @param \User\Entity\User $user
-     */
-    public function save(\User\Entity\User $user)
+
+    public function save(User $user)
     {
-        
     }
-    /**
-     *
-     * @param \User\Entity\User $user
-     */
-    public function update(\User\Entity\User $user)
+
+    public function update(User $user)
     {
 
     }
-
-    public function add(User $user) 
-    {
-        
-    }
-
 }

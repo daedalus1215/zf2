@@ -34,7 +34,8 @@ return array(
     ),
     // This block of code is run for every service that is retrieved with the service manager
     'initializers' => array(
-        function($instance, ServiceLocatorInterface $serviceLocator) {
+        function($instance, ServiceLocatorInterface $serviceLocator) 
+        {
             if ($instance instanceof AdapterAwareInterface) {
                 $instance->setDbAdapter($serviceLocator->get('\Zend\Db\Adapter\Adapter'));
             }
