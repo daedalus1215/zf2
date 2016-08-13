@@ -83,6 +83,37 @@ class IndexController extends AbstractActionController
         ));
     }
     
+    public function loginAction() 
+    {
+        if ($this->identity() != null) {
+            $this->flashMessenger()->addErrorMessage('You are already logged in');
+            return $this->redirect()->toRoute('home');
+        }
+        
+        $form = new \User\Form\Login();
+        
+        if ($this->request->isPost()) {
+            $form->setData($this->request->getPost());
+            $form->setInputFilter(new \User\InputFilter\Login());
+            
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $loginResult = $this->getUserService()->login($data['email'], $data['password']);
+                
+                if ($loginResult) {
+                    $this->flashMessenger()->addSuccessMessage('You have been logged in');
+                }
+                else {
+                    $this->flashMessenger()->addWarningMessage('Invalid login credentialsl');
+                }
+            }            
+        }
+        
+        return new ViewModel(['form' => $form]);
+    }
+    
+    
+    
     /**
      * 
      * @return UserService

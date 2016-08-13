@@ -36,7 +36,12 @@ class UserRepositoryImpl implements UserRepository
         $statement = $sql->prepareStatementForSqlObject($insert);
         $statement->execute();
     }
-
+    
+    /**
+     * 
+     * @param type $clearTextPassword
+     * @return type
+     */
     public function generatePasswords($clearTextPassword)
     {
         $encrypter = new Bcrypt();
@@ -44,13 +49,17 @@ class UserRepositoryImpl implements UserRepository
 
         return $encrypter->create($clearTextPassword);
     }
-        
+    
+    /**
+     * 
+     * @return \Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter
+     */
     public function getAuthenticationAdapter() 
     {
+        // Where are we getting these two passwords.
         $callback = function($encryptedPassword, $clearTextedPassword) {
             $encrypter = new Bcrypt();
-            $encrypter->setCost(12);
-            
+            $encrypter->setCost(12);            
             return $encrypter->verify($clearTextedPassword, $encryptedPassword);
         };
         

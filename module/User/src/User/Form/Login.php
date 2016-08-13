@@ -1,4 +1,5 @@
 <?php
+namespace User\Form;
 
 use Zend\Form\Element\Email;
 use Zend\Form\Element\Submit;

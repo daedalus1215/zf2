@@ -22,4 +22,18 @@ interface UserService
      * @return
      */
     public function add(User $user);
+    
+    /**
+     * @return \Zend\Authentication\AuthenticationService
+     */
+    public function getAuthenticationService();
+    
+    /**
+     * 
+     * @param string $email
+     * @param string $password
+     * 
+     * @return boolean
+     */
+    public function login($email, $password);
 }

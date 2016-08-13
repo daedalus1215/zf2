@@ -56,4 +56,32 @@ class UserServiceImpl implements UserService
     {
 
     }
+    
+    public function getAuthenticationService() 
+    {
+        $authenticationAdapter = $this->userRepository->getAuthenticationAdapter();
+        return new \Zend\Authentication\AuthenticationService(null, $authenticationAdapter);
+    }
+
+    public function login($email, $password) 
+    {
+        $authenticationService = $this->getAuthenticationService();
+        
+        /**
+         * @var \Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter $authenticationAdapter
+         */
+        $authenticationAdapter = $authenticationService->getAdapter();
+        $authenticationAdapter->setIdentity($email);
+        $authenticationAdapter->setCredential($password);
+        
+        $result = $authenticationAdapter->authenticate();
+        
+        if ($result->isValid()) {
+            $identityObject = $authenticationAdapter->getResultRowObject(null, array('password'));
+            $authenticationService->getStorage()->write($identityObject); // writes into the user's session.
+        }
+        
+        return false;                    
+    }
+
 }
