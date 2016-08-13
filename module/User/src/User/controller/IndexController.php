@@ -104,7 +104,7 @@ class IndexController extends AbstractActionController
                     $this->flashMessenger()->addSuccessMessage('You have been logged in');
                 }
                 else {
-                    $this->flashMessenger()->addWarningMessage('Invalid login credentialsl');
+                    $this->flashMessenger()->addErrorMessage('Invalid login credentialsl');
                 }
             }            
         }
