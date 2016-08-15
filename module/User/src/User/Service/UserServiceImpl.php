@@ -72,8 +72,7 @@ class UserServiceImpl implements UserService
          */
         $authenticationAdapter = $authenticationService->getAdapter();
         $authenticationAdapter->setIdentity($email);
-        $authenticationAdapter->setCredential($password);
-        
+        $authenticationAdapter->setCredential($password);        
         $result = $authenticationAdapter->authenticate();
         
         if ($result->isValid()) {

@@ -46,8 +46,11 @@ class UserRepositoryImpl implements UserRepository
     {
         $encrypter = new Bcrypt();
         $encrypter->setCost(12);
-
-        return $encrypter->create($clearTextPassword);
+        $encryptedPassword = $encrypter->create($clearTextPassword);
+        
+        print ("The encrypted generatedPassword is : " . $encryptedPassword);
+        
+        return $encryptedPassword;
     }
     
     /**
@@ -59,7 +62,8 @@ class UserRepositoryImpl implements UserRepository
         // Where are we getting these two passwords.
         $callback = function($encryptedPassword, $clearTextedPassword) {
             $encrypter = new Bcrypt();
-            $encrypter->setCost(12);            
+            $encrypter->setCost(12);
+            print ("The encrypted password we are checking with getAUthentication is : " . $encryptedPassword);
             return $encrypter->verify($clearTextedPassword, $encryptedPassword);
         };
         
