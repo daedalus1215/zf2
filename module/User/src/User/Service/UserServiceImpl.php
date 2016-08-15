@@ -75,6 +75,7 @@ class UserServiceImpl implements UserService
         $authenticationAdapter->setCredential($password);        
         $result = $authenticationAdapter->authenticate();
         
+                
         if ($result->isValid()) {
             $identityObject = $authenticationAdapter->getResultRowObject(null, array('password'));
             $authenticationService->getStorage()->write($identityObject); // writes into the user's session.
