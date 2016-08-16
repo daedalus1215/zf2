@@ -44,6 +44,9 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
+        $this->layout('layout/user'); // trying to attach the new layout to blog module rotues.
+
+
         $variables = [];
         /**
          * @var BlogService
