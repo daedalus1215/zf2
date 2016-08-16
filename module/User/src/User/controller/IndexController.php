@@ -114,7 +114,11 @@ class IndexController extends AbstractActionController
 
     public function logoutAction()
     {
-        
+        $authenticationService = $this->getUserService()->getAuthenticationService();
+        $authenticationService->clearIdentity();
+        $this->flashMessenger()->addSuccessMessage('You have been logged out!');
+
+        return $this->redirect()->toRoute('login');
     }
 
     /**
