@@ -8,23 +8,30 @@ use Blog\Form\Edit;
 use Blog\InputFilter\AddPost;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+
+
+
     /**
      *
      * @var \Zend\ServiceManager\ServiceManager
      */
     protected $serviceManager;
     /**
-     * 
+     *
      * @param \Zend\ServiceManager\ServiceManager $serviceManager
      */
-    public function __construct(\Zend\ServiceManager\ServiceManager $serviceManager) 
+    public function __construct(\Zend\ServiceManager\ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
+
+
     }
+
     /**
      *
      * @return BlogService
@@ -44,6 +51,13 @@ class IndexController extends AbstractActionController
         $blogService = $this->getBlogService();
         $page = $this->params()->fromRoute('page'); // grab the :page url parameter.
         $variables['paginator'] = $blogService->fetch($page);
+
+        // testing sessions
+        $namespace = 'user';
+        $container = new Container($namespace);
+        $name = $container->name;
+        $website = $container->website;
+
 
         return new ViewModel($variables);
     }
