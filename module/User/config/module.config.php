@@ -33,8 +33,8 @@ return array(
                             ),
                         ),
                     ),
-                ),                
-            ),    
+                ),
+            ),
             'login' => array(
                     'type' => 'Literal',
                     'options' => array(
@@ -42,6 +42,16 @@ return array(
                         'defaults' => array(
                             'controller' => 'User\Controller\Index',
                             'action' => 'login',
+                        ),
+                    ),
+                ),
+            'logout' => array(
+                    'type' => 'Literal',
+                    'options' => array(
+                        'route' => '/logout',
+                        'defaults' => array(
+                            'controller' => 'User\Controller\Index',
+                            'action' => 'logout',
                         ),
                     ),
                 ),
