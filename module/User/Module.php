@@ -9,6 +9,20 @@ use Zend\ModuleManager\Feature\ServiceProviderInterface;
 class Module implements ConfigProviderInterface, ServiceProviderInterface, AutoloaderProviderInterface
 {
     /**
+     *
+     * @param \User\ModuleManager $moduleManager
+     */
+    public function init(\Zend\ModuleManager\ModuleManager $moduleManager)
+    {
+        $eventManager = $moduleManager->getEventManager();
+        $sharedManager = $eventManager->getSharedManager();
+        $sharedManager->attach(__NAMESPACE__, 'dispatch', function($event) {
+            $event->getTarget()->layout('layout/user');
+        });
+    }
+
+
+    /**
      * Return an array for passing to Zend\Loader\AutoloaderFactory.
      *
      * @return array
